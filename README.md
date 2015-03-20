@@ -102,7 +102,7 @@ Prediction    A    B    C    D    E
 In the next model we will apply GBM. This algorithm is generally concidered to be more accurate than random forest because of its gradient descent algoritm minimising the error over multiple of iterations[2].
 
 ```{r}
-GBM
+2.2 GBM
 modelFitgbm <- train(pml.training$classe) ~ ., method = "gbm", allowParallel=TRUE,data = pmltslct)
 summary(modelFitgbm) 
 confusiontable<-confusionMatrix(modelFitgbm)
