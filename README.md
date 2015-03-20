@@ -73,11 +73,15 @@ Creating new dataframes for both the test - and trainingset without redundant fe
 ```{r}
 pmltslct<-pml.training[,variablesincluded]
 pmlttestslct<-pml.testing[,variablesincluded]
-'''
+```
 
 #2. Modelfitting and Training
-#2.1 Random forest
+
 First we will try the random forest algorithm and inspect the acuracy.
+
+#2.1 Random forest
+
+
 ```{r}
 modelFitrf <- train(pml.training$classe) ~ ., method = "rf", allowParallel=TRUE,data = pmltslct)
 summary(modelFitrf)
@@ -98,11 +102,10 @@ Prediction    A    B    C    D    E
 ```
 
 
-#1.2 Gradient Boosting with GBM
+#2.2 Gradient Boosting with GBM
 In the next model we will apply GBM. This algorithm is generally concidered to be more accurate than random forest because of its gradient descent algoritm minimising the error over multiple of iterations[2].
 
 ```{r}
-2.2 GBM
 modelFitgbm <- train(pml.training$classe) ~ ., method = "gbm", allowParallel=TRUE,data = pmltslct)
 summary(modelFitgbm) 
 confusiontable<-confusionMatrix(modelFitgbm)
