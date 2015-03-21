@@ -83,7 +83,7 @@ First we will try the random forest algorithm and inspect the acuracy.
 
 
 ```{r}
-modelFitrf <- train(pml.training$classe) ~ ., method = "rf", allowParallel=TRUE,data = pmltslct)
+modelFitrf <- train(pml.training$classe ~ ., method = "rf", allowParallel=TRUE,data = pmltslct)
 summary(modelFitrf)
 ```
 This model gives an Accuracy of .985 and an in sample error of (1-.985) .015 which is a very good performance.
@@ -107,7 +107,7 @@ Prediction    A    B    C    D    E
 In the next model we will apply GBM. This algorithm is generally concidered to be more accurate than random forest because of its gradient descent algoritm minimising the error over multiple of iterations[2].
 
 ```{r}
-modelFitgbm <- train(pml.training$classe) ~ ., method = "gbm", allowParallel=TRUE,data = pmltslct)
+modelFitgbm <- train(pml.training$classe ~ ., method = "gbm", allowParallel=TRUE,data = pmltslct)
 summary(modelFitgbm) 
 confusiontable<-confusionMatrix(modelFitgbm)
 
@@ -143,7 +143,7 @@ In the next model we implement more cross validations so that the final model is
 ```{r}
 
 
-modelFitrf2 <- train(pml.training$classe) ~ ., method = "rf", allowParallel=TRUE,trControl=trainControl(method="cv",number=5),data =pmltslct)
+modelFitrf2 <- train(pml.training$classe ~ ., method = "rf", allowParallel=TRUE,trControl=trainControl(method="cv",number=5),data =pmltslct)
 ```
 Let's look at the results of the random forest model
 
@@ -176,6 +176,7 @@ The final value used for the model was mtry = 6952.
 ```
 
 With cross validated random forest we managed to outperform the GBM with a 100% accuracy so this will be our final model. 
+
 ###3. Prediction
 So now we are going to predict the classes of the test set with our final model
 
@@ -188,7 +189,7 @@ Which turn out to result in a 100% accuracy on the test set. An interseting obse
 
 
 ####Conclusion
-GBM is more effective than a regular random forrest model at expensive of computational efficiency. However, a random forest with 5 cross validations where the final model is an average of multiple random forest models performs the most accurate with manageable computational load[5]. 
+GBM is more effective than a regular random forrest model at the expensive of computational efficiency. However, a random forest with 5 cross validations where the final model is an average of multiple random forest models performs the most accurate with manageable computational load[5]. 
 
 
 ####Literature
