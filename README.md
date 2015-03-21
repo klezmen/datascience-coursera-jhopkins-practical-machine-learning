@@ -5,7 +5,7 @@ Predicting Barbell Movements from Sensor Data
 
 Wearable devices enable users to store large amounts of data collected through sensors. While most practical applications of sensor data are descriptive[1],  in this article we will go a step further and predict types of movements from gathered sensor data. 6 participants were asked to perform barbell lifts in 5 different ways, sensor data is stored and from this data a predictive model is created and assessed on accuracy. We will assess random forest and gbm (gradient boosing) on accurcay and computational efficiency
 
-#Loading the Data
+###Loading the Data
 These are the required packages:
 
 ```{r}
@@ -28,7 +28,7 @@ Let's load the data
 pml.training<- read.csv("./pml-training.csv")
 pml.testing <- read.csv("./pml-testing.csv")
 ```
-# 1. Inspection and Summary Descriptives 
+### 1. Inspection and Summary Descriptives 
 Upon inspecting the features it became appearent that a lot of variables are empty 
 ```{r}
 head(pml.training,5)
@@ -75,18 +75,18 @@ pmltslct<-pml.training[,variablesincluded]
 pmlttestslct<-pml.testing[,variablesincluded]
 ```
 
-#2. Modelfitting and Training
+###2. Modelfitting and Training
 
 First we will try the random forest algorithm and inspect the acuracy.
 
-#2.1 Random forest
+###2.1 Random forest
 
 
 ```{r}
 modelFitrf <- train(pml.training$classe) ~ ., method = "rf", allowParallel=TRUE,data = pmltslct)
 summary(modelFitrf)
 ```
-This model gives an Accuracy of .985 and an in training error 1-.985= .015. which is a very good performance.
+This model gives an Accuracy of .985 which is a very good performance
 ```{r}
 Bootstrapped (25 reps) Confusion Matrix 
 
@@ -102,7 +102,7 @@ Prediction    A    B    C    D    E
 ```
 
 
-#2.2 Gradient Boosting with GBM
+###2.2 Gradient Boosting with GBM
 In the next model we will apply GBM. This algorithm is generally concidered to be more accurate than random forest because of its gradient descent algoritm minimising the error over multiple of iterations[2].
 
 ```{r}
@@ -134,18 +134,16 @@ This model performs just slightly better than random forest although the computa
 GBM is a lot more computationally expensive than random forest because of it’s gradient algorithm running over multiple iterations (finding minimum optima) so in the next model we try to find the optimum parameters with random forest, to see if we can outperform GBM.
 
 
-#2.3 Random Forest with Cross Validation
+###2.3 Random Forest with Cross Validation
 
 In the next model we implement more cross validations so that the final model is an average of even more random forest  models . 
 
 
 ```{r}
-modelFitrf2 <- train(as.factor(pml.training$classe) ~ ., method = "rf", allowParallel=TRUE,trControl=trainControl(method="cv",number=5),data =pmltslct)
 
 
+modelFitrf2 <- train(pml.training$classe) ~ ., method = "rf", allowParallel=TRUE,trControl=trainControl(method="cv",number=5),data =pmltslct)
 ```
-
-
 Let's look at the results of the random forest model
 
 ```{r}
@@ -177,26 +175,24 @@ The final value used for the model was mtry = 6952.
 ```
 
 With cross validated random forest we managed to outperform the GBM with a 100% accuracy so this will be our final model. 
-#3. Prediction
+###3. Prediction
 So now we are going to predict the classes of the test set with our final model
 
 ```{r}
 predict(modelFitrf,newdata=pmlttestslct)
      B A B A A E D B A A B C B A E E A B B B
 ```
-Which turned out to result in a 100% accuracy on the test set. An interesting observation is that in this case the out of sample error is lower than the in sample error. In the training model the error was 1-.985= .015.
+Which turn out to result in a 100% accuracy on the test set.
 
 
 
-#Conclusion
+####Conclusion
 GBM is more effective than a regular random forrest model at expensive of computational efficiency. However, a random forest with 4 cross validations where the final model is an average of multiple random forest models performs the most accurate with manageable computational load[5]. 
 
 
-#Literature
+####Literature
 1. Ugulino, W.; Cardador, D.; Vega, K.; Velloso, E.; Milidiu, R.; Fuks, H. Wearable Computing: Accelerometers' Data Classification of Body Postures and Movements. Proceedings of 21st Brazilian Symposium on Artificial Intelligence. Advances in Artificial Intelligence - SBIA 2012. In: Lecture Notes in Computer Science., pp. 52-61. Curitiba, PR: Springer Berlin / Heidelberg, 2012. ISBN 978-3-642-34458-9. DOI: 10.1007/978-3-642-34459-6_6. 
 2. Breiman, L. (2001). Random forests. Machine learning, 45(1), 5-32.
 3. Friedman, J. H. "Greedy Function Approximation: A Gradient Boosting Machine." (Feb. 1999a)
 4. Introduction to parallel computing in R - Michael J Koontz (April 2014)
 5. Leo Breiman (2003). Manual for Setting Up, Using, and Understanding Random Forest V4.0. http://oz.berkeley.edu/users/breiman/Using_random_forests_v4.0.pdf
-
-
