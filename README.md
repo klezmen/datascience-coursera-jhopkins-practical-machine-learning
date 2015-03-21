@@ -131,7 +131,7 @@ Resampling results across tuning parameters:
   6950  0.994     0.993    0.00774      0.00983 
 ```
 
-This model performs just slightly better than random forest although the computation time took a full day on a 4-core macbook pro with 16gb ram.
+This model performs slightly better than random forest (.994) although the computation time took a full day on a 4-core macbook pro with 16gb ram.
 GBM is a lot more computationally expensive than random forest because of it’s gradient algorithm running over multiple iterations (finding minimum optima) so in the next model we try to find the optimum parameters with random forest, to see if we can outperform GBM.
 
 
