@@ -140,10 +140,12 @@ In the next model we implement more cross validations so that the final model is
 
 
 ```{r}
+modelFitrf2 <- train(as.factor(pml.training$classe) ~ ., method = "rf", allowParallel=TRUE,trControl=trainControl(method="cv",number=5),data =pmltslct)
 
 
-modelFitrf2 <- train(pml.training$classe) ~ ., method = "rf", allowParallel=TRUE,trControl=trainControl(method="cv",number=5),data =pmltslct)
 ```
+
+
 Let's look at the results of the random forest model
 
 ```{r}
@@ -196,3 +198,5 @@ GBM is more effective than a regular random forrest model at expensive of comput
 3. Friedman, J. H. "Greedy Function Approximation: A Gradient Boosting Machine." (Feb. 1999a)
 4. Introduction to parallel computing in R - Michael J Koontz (April 2014)
 5. Leo Breiman (2003). Manual for Setting Up, Using, and Understanding Random Forest V4.0. http://oz.berkeley.edu/users/breiman/Using_random_forests_v4.0.pdf
+
+
