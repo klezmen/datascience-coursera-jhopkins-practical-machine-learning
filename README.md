@@ -86,7 +86,8 @@ First we will try the random forest algorithm and inspect the acuracy.
 modelFitrf <- train(pml.training$classe) ~ ., method = "rf", allowParallel=TRUE,data = pmltslct)
 summary(modelFitrf)
 ```
-This model gives an Accuracy of .985 which is a very good performance
+This model gives an Accuracy of .985 and an in sample error of (1-.985) .015 which is a very good performance.
+
 ```{r}
 Bootstrapped (25 reps) Confusion Matrix 
 
@@ -182,7 +183,7 @@ So now we are going to predict the classes of the test set with our final model
 predict(modelFitrf,newdata=pmlttestslct)
      B A B A A E D B A A B C B A E E A B B B
 ```
-Which turn out to result in a 100% accuracy on the test set.
+Which turn out to result in a 100% accuracy on the test set. An interseting observation is that in this case the out of sample cross validation error (0) is lower than the in sample error (.015). This is caused by the small size of the test set (20 observations) relative to the training set.
 
 
 
