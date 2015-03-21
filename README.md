@@ -73,8 +73,11 @@ Creating new dataframes for both the test - and trainingset without redundant fe
 ```{r}
 pmltslct<-pml.training[,variablesincluded]
 pmlttestslct<-pml.testing[,variablesincluded]
+nacount<-sum(is.na(pmltslct))
+nacount
+[1] 0
 ```
-
+Now the redundant features are removed, we have zero missing values.
 ###2. Modelfitting and Training
 
 First we will try the random forest algorithm and inspect the acuracy.
