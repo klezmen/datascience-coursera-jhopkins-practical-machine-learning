@@ -105,6 +105,39 @@ Prediction    A    B    C    D    E
          E  0.0  0.0  0.0  0.0 18.3
 ```
 
+Another interesting performance metric is the variable importance of the features included in the model. Roll_belt has by far the most imfluence on performance. There is no reason to drop any variable from the model as all of them have some influence on predictive performance.
+
+```{r}
+varImp(modelFitrf)
+rf variable importance
+
+  only 20 most important variables shown (out of 52)
+
+                  Overall
+roll_belt          100.00
+yaw_belt            76.16
+magnet_dumbbell_z   67.88
+magnet_dumbbell_y   62.30
+pitch_belt          60.77
+pitch_forearm       58.82
+magnet_dumbbell_x   51.11
+roll_forearm        50.61
+accel_belt_z        43.83
+roll_dumbbell       42.69
+accel_dumbbell_y    42.61
+magnet_belt_y       41.24
+magnet_belt_z       41.02
+accel_dumbbell_z    37.10
+roll_arm            36.00
+accel_forearm_x     31.02
+gyros_belt_z        30.12
+accel_dumbbell_x    29.64
+gyros_dumbbell_y    28.97
+yaw_dumbbell        28.93
+```
+
+
+
 
 ###2.2 Gradient Boosting with GBM
 In the next model we will apply GBM. This algorithm is generally concidered to be more accurate than random forest because of its gradient descent algoritm minimising the error over multiple of iterations[2].
