@@ -225,7 +225,7 @@ Which turn out to result in a 100% accuracy on the test set. An interseting obse
 
 
 ####Conclusion
-GBM is more effective than a regular random forrest model at the expensive of computational efficiency. However, a random forest with 5 cross validations where the final model is an average of multiple random forest models performs the most accurate with manageable computational load[5]. 
+GBM is more effective than a regular random forrest model at the expensive of computational efficiency. However, a random forest with 5-fold cross validations where the final model is an average of multiple random forest models performs the most accurate with manageable computational load[5]. 
 
 
 ####Literature
