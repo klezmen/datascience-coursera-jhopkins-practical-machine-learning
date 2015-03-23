@@ -3,7 +3,7 @@ The goal of this project is to predict how well a person is doing his or her exe
 Predicting Barbell Movements from Sensor Data
 ========================================================
 
-Wearable devices enable users to store large amounts of data collected through sensors. While most practical applications of sensor data are descriptive[1],  in this article we will go a step further and predict types of movements from gathered sensor data. 6 participants were asked to perform barbell lifts in 5 different ways, sensor data is stored and from this data a predictive model is created and assessed on accuracy. We will assess random forest and gbm (gradient boosing) on accurcay and computational efficiency
+Wearable devices enable users to store large amounts of data collected through sensors. While most practical applications of sensor data are descriptive[1],  in this article we will go a step further and predict types of movements from gathered sensor data. 6 participants were asked to perform barbell lifts in 5 different ways, sensor data is stored and from this data a predictive model is created and assessed on accuracy. We will assess random forest and gbm (gradient boosing) on accurcay and computational efficiency. 
 
 ###Loading the Data
 These are the required packages:
@@ -80,7 +80,7 @@ nacount
 Now the redundant features are removed, we have zero missing values.
 ###2. Modelfitting and Training
 
-First we will try the random forest algorithm and inspect the acuracy.
+First we will try the random forest algorithm and inspect the acuracy. We expect this model to have some out of sample error, but at least it will provide a performance metric for model selection.
 
 ###2.1 Random forest
 
@@ -140,7 +140,7 @@ yaw_dumbbell        28.93
 
 
 ###2.2 Gradient Boosting with GBM
-In the next model we will apply GBM. This algorithm is generally concidered to be more accurate than random forest because of its gradient descent algoritm minimising the error over multiple of iterations[2].
+In the next model we will apply GBM. This algorithm is generally concidered to be more accurate than random forest because of its gradient descent algoritm minimising the error over multiple of iterations[2]. With GBM we expect a lower out of sample error than with a regular random forest model.
 
 ```{r}
 modelFitgbm <- train(pml.training$classe ~ ., method = "gbm", allowParallel=TRUE,data = pmltslct)
